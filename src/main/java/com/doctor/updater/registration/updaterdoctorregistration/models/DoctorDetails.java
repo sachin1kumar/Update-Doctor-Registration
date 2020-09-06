@@ -1,6 +1,7 @@
-package com.doctor.doctorregistration.models;
+package com.doctor.updater.registration.updaterdoctorregistration.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +13,7 @@ import java.math.BigInteger;
 public class DoctorDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private BigInteger id;
     private String name;
     private String clinic_name;
     private String address;
@@ -90,11 +91,11 @@ public class DoctorDetails {
         this.password = password;
     }
 
-    public int getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 }

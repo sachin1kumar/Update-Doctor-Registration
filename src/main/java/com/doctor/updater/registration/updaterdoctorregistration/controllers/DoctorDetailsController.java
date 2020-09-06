@@ -1,29 +1,35 @@
-package com.doctor.doctorregistration.controllers;
+package com.doctor.updater.registration.updaterdoctorregistration.controllers;
 
-import com.doctor.doctorregistration.models.DoctorDetails;
-import com.doctor.doctorregistration.models.RegistrationResponse;
-import com.doctor.doctorregistration.repositories.DoctorDetailsRepository;
+import com.doctor.updater.registration.updaterdoctorregistration.models.DoctorDetails;
+import com.doctor.updater.registration.updaterdoctorregistration.repositories.DoctorDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.print.Doc;
+import java.math.BigInteger;
 
 @RestController
-@RequestMapping("/registration")
+@RequestMapping("/update-registration")
 public class DoctorDetailsController {
 
     @Autowired
     private DoctorDetailsRepository doctorDetailsRepository;
 
-    @RequestMapping(value = "/registerDoctor", method = RequestMethod.POST)
-    public ResponseEntity<RegistrationResponse> registerDoctor(@RequestBody DoctorDetails doctorDetails) {
-            doctorDetailsRepository.save(doctorDetails);
-            RegistrationResponse registrationResponse = new RegistrationResponse();
-            registrationResponse.setDoctorId(doctorDetails.getId());
-            return ResponseEntity.status(HttpStatus.CREATED).body(registrationResponse);
+    @RequestMapping(value = "/doctor/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateRegisteredDoctor(@PathVariable BigInteger id, @RequestBody DoctorDetails doctorDetails) {
+        DoctorDetails currentDoctorDetails = doctorDetailsRepository.findById(id).get();
+        currentDoctorDetails.setName(doctorDetails.getName());
+        currentDoctorDetails.setClinic_name(doctorDetails.getClinic_name());
+        currentDoctorDetails.setAddress(doctorDetails.getAddress());
+        currentDoctorDetails.setFees(doctorDetails.getFees());
+        currentDoctorDetails.setTiming(doctorDetails.getTiming());
+        currentDoctorDetails.setRegistration_date(doctorDetails.getRegistration_date());
+        currentDoctorDetails.setEmail_id(doctorDetails.getEmail_id());
+        currentDoctorDetails.setPassword(doctorDetails.getPassword());
+        doctorDetailsRepository.save(currentDoctorDetails);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 

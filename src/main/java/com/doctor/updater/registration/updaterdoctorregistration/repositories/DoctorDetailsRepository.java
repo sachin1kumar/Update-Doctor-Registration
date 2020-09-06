@@ -1,6 +1,6 @@
-package com.doctor.doctorregistration.repositories;
+package com.doctor.updater.registration.updaterdoctorregistration.repositories;
 
-import com.doctor.doctorregistration.models.DoctorDetails;
+import com.doctor.updater.registration.updaterdoctorregistration.models.DoctorDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
